@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Md. Rokibul Hasan | Naval Architect & Marine Engineer</title>
+  <meta name="description"
+    content="Portfolio of Md. Rokibul Hasan - Marine Engineering graduate from MIST, specializing in structural analysis, sustainable ship design, and parametric modeling.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Prevent flash of wrong theme on load -->
+  <script>
+    (function() {
+      var saved = localStorage.getItem("rokibul-theme");
+      if (saved === "light") document.documentElement.classList.add("pre-light");
+    })();
+  </script>
+</head>
+
+<body>
+
+  <!-- Background Blueprint Canvas -->
+  <canvas id="blueprint-canvas"></canvas>
+  <div class="blueprint-grid-overlay"></div>
+
+  <!-- Custom Scroll Indicator -->
+  <div class="scroll-progress-bar" id="scroll-progress"></div>
+
+  <!-- Header & Navigation -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="#" class="logo">
+        <img src="./assets/logo.png" alt="Logo" class="logo-icon" style="object-fit: contain;">
+        <span class="logo-text">ROKIBUL</span>
+      </a>
+
+      <nav class="main-nav">
+        <ul>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#designing" class="nav-link">Designing</a></li>
+          <li><a href="#experience" class="nav-link">Experience</a></li>
+          <li><a href="#publications" class="nav-link">Publications</a></li>
+          <li><a href="#certifications" class="nav-link">Certifications</a></li>
+          <li><a href="#contact" class="nav-link nav-btn">Contact</a></li>
+        </ul>
+      </nav>
+
+      <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle light/dark mode">
+        <!-- Moon icon (shown in dark mode) -->
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <!-- Sun icon (shown in light mode) -->
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+      </button>
+
+      <button class="mobile-nav-toggle" aria-label="Toggle navigation">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+      <div class="section-container hero-container">
+        <div class="hero-content">
+          <div class="badge-container">
+            <span class="hero-badge">Open for MSc/PhD Programs & Research Roles</span>
+          </div>
+          <h1 class="hero-title">
+            <span class="greeting">Hi, I am</span>
+            <span class="name-highlight">Md. Rokibul Hasan</span>
+          </h1>
+          <h2 class="hero-subtitle">
+            I am a <span class="typewriter-text" id="typewriter"></span>
+          </h2>
+          <p class="hero-description">
+            A Naval Architecture and Marine Engineering graduate from MIST specializing in structural analysis,
+            computational fluid dynamics (CFD), and parametric design. Passionate about automating ship design workflows
+            and developing next-generation marine technologies.
+          </p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-primary">
+              <span>Contact Me</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            <!-- CV PDF download link -->
+            <a href="./assets/cv/rokibul_cv.pdf" download="rokibul_cv.pdf" class="btn btn-secondary"
+              id="download-resume-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+              </svg>
+              <span>Download CV</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="profile-visual-wrapper">
+            <div class="profile-ring ring-1"></div>
+            <div class="profile-ring ring-2"></div>
+            <div class="profile-ring ring-3"></div>
+            <!-- Circular profile photo -->
+            <div class="profile-photo-frame">
+              <img src="./assets/images/profile.jpg" alt="Md. Rokibul Hasan" class="profile-photo">
+            </div>
+            <!-- Decorative coordinate labels -->
+            <div class="profile-coord-orbit orbit-1">
+              <span class="profile-coord float-slow-1">CFD</span>
+            </div>
+            <div class="profile-coord-orbit orbit-2">
+              <span class="profile-coord float-slow-2">FSI</span>
+            </div>
+            <div class="profile-coord-orbit orbit-3">
+              <span class="profile-coord float-slow-3">FEM</span>
+            </div>
+            <div class="profile-coord-orbit orbit-4">
+              <span class="profile-coord float-slow-4">CAD</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-down-indicator">
+        <a href="#about" aria-label="Scroll to About Section">
+          <span class="mouse-icon">
+            <span class="wheel"></span>
+          </span>
+          <span class="arrow-down"></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- About Me / Focus Areas Section -->
+    <section id="about" class="about-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="subtitle">Brief Overview</span>
+          <h2 class="title">About Me & Core Focus</h2>
+          <div class="title-underline"></div>
+        </div>
+
+        <div class="about-intro-grid">
+          <div class="about-bio">
+            <h3>Bridging Computational Engineering & Naval Architecture</h3>
+            <p>
+              As a graduate in <strong>Naval Architecture and Marine Engineering</strong> from the Military Institute of
+              Science and Technology (MIST), I focus on the structural, hydrodynamic, and parametric aspects of ship
+              design. I apply advanced computer-aided engineering (CAE) techniques to improve vessel safety and
+              optimization.
+            </p>
+            <p>
+              My academic thesis explored forecastle bulwark geometry optimization using finite element analysis during
+              collision events, while my course projects involved designing massive ocean-going LNG vessels. I also
+              write custom parametric scripts using Grasshopper to automate hull design and lines plan development.
+            </p>
+            <p class="highlight-text">
+              I am highly interested in pursuing a MSc/PhD degree or research-driven roles to continue investigating
+              CFD, structural mechanics, and parametric ship design automation.
+            </p>
+          </div>
+          <div class="about-quick-specs">
+            <div class="specs-card">
+              <div class="spec-item">
+                <span class="spec-label">Education</span>
+                <span class="spec-val">B.Sc. in NAME, MIST</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Specialties</span>
+                <span class="spec-val">CFD, FEM, Parametric Design, Structural Integrity</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Key Thesis</span>
+                <span class="spec-val">Fore Geometry Impact in Crossing Collision</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Dean's List Award</span>
+                <span class="spec-val">Honored in 2024 & 2025</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Focus Areas Grid -->
+        <h3 class="focus-grid-title">Core Engineering Pillars</h3>
+        <div class="focus-grid" id="competencies">
+
+          <!-- Pillar 1 -->
+          <div class="focus-card">
+            <div class="focus-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="focus-icon">
+                <path
+                  d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                </path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+              </svg>
+            </div>
+            <h4>Finite Element Analysis (FEA)</h4>
+            <p>Conducting linear, non-linear, and transient structural simulations using ANSYS Mechanical and LS-Dyna to
+              assess impact energy absorption and material stresses.</p>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="focus-card">
+            <div class="focus-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="focus-icon">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+              </svg>
+            </div>
+            <h4>Computational Fluid Dynamics (CFD)</h4>
+            <p>Analyzing ship resistance, wake distributions, and aerodynamic flows over parametric turbine blades using
+              Ansys Fluent, Aqwa, and Star-CCM+.</p>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="focus-card">
+            <div class="focus-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="focus-icon">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+            </div>
+            <h4>Parametric Automation</h4>
+            <p>Building automated modeling algorithms in Grasshopper to generate parametric ship hulls, lines plans,
+              offset tables, and turbine geometries.</p>
+          </div>
+
+          <!-- Pillar 4 -->
+          <div class="focus-card">
+            <div class="focus-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="focus-icon">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+                <polyline points="10 9 9 9 8 9" />
+              </svg>
+            </div>
+            <h4>Publications & Research</h4>
+            <p>Authoring peer-reviewed literature reviews examining the state of automation, CAD integration, and
+              computational design trends in modern ship design.</p>
+          </div>
+
+          <!-- Pillar 5 -->
+          <div class="focus-card focus-card-wide">
+            <div class="focus-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="focus-icon">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <div class="focus-wide-content">
+              <h4>Design & Fabrication Engineering</h4>
+              <p>Specializing in CAD drafting, marine machinery layouts, and shipyard safety/QA construction standards.
+                Experienced in graphic design and editorial coordination for departmental magazines.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills & Tools Section -->
+    <section id="skills" class="skills-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="subtitle">My Arsenal</span>
+          <h2 class="title">Skills & Engineering Tools</h2>
+          <div class="title-underline"></div>
+        </div>
+
+        <div class="skills-layout-wrapper">
+          <!-- Left side: Core Skills Progress Bars -->
+          <div class="skills-core">
+            <h3>Core Technical Expertise</h3>
+
+            <div class="skill-progress-item">
+              <div class="skill-info">
+                <span>Parametric Design & Algorithm Automation</span>
+                <span class="skill-percent">95%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-bar" data-width="95%"></div>
+              </div>
+            </div>
+
+            <div class="skill-progress-item">
+              <div class="skill-info">
+                <span>Finite Element Analysis (FEA)</span>
+                <span class="skill-percent">92%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-bar" data-width="92%"></div>
+              </div>
+            </div>
+
+            <div class="skill-progress-item">
+              <div class="skill-info">
+                <span>Computational Fluid Dynamics (CFD)</span>
+                <span class="skill-percent">88%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-bar" data-width="88%"></div>
+              </div>
+            </div>
+
+            <div class="skill-progress-item">
+              <div class="skill-info">
+                <span>Ship Design & Hydrostatics (Maxsurf/CAD)</span>
+                <span class="skill-percent">90%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-bar" data-width="90%"></div>
+              </div>
+            </div>
+
+            <div class="skill-progress-item">
+              <div class="skill-info">
+                <span>Coding & Scripting (MATLAB/Python)</span>
+                <span class="skill-percent">85%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-bar" data-width="85%"></div>
+              </div>
+            </div>
+
+            <div class="skill-progress-item">
+              <div class="skill-info">
+                <span>Graphic Design & 3D Rendering (Blender/PS/AI)</span>
+                <span class="skill-percent">90%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-bar" data-width="90%"></div>
+              </div>
+            </div>
+
+            <div class="skill-progress-item">
+              <div class="skill-info">
+                <span>Fluid-Solid Interaction (FSI)</span>
+                <span class="skill-percent">86%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-bar" data-width="86%"></div>
+              </div>
+            </div>
+
+            <div class="skill-progress-item">
+              <div class="skill-info">
+                <span>Hydrodynamic Analysis</span>
+                <span class="skill-percent">90%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-bar" data-width="90%"></div>
+              </div>
+            </div>
+
+            <div class="skill-progress-item">
+              <div class="skill-info">
+                <span>Research Methodologies & Scientific Writing</span>
+                <span class="skill-percent">92%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-bar" data-width="92%"></div>
+              </div>
+            </div>
+
+            <div class="skill-progress-item">
+              <div class="skill-info">
+                <span>Marine Classification Rules & Standards (DNV/Lloyd's/ABS)</span>
+                <span class="skill-percent">88%</span>
+              </div>
+              <div class="progress-track">
+                <div class="progress-bar" data-width="88%"></div>
+              </div>
+            </div>
+            <!-- Languages -->
+            <div class="skills-languages">
+              <h3>Language Proficiency</h3>
+              <div class="languages-pills">
+                <div class="language-pill">
+                  <span class="lang-name">Bangla</span>
+                  <span class="lang-level">Native</span>
+                </div>
+                <div class="language-pill">
+                  <span class="lang-name">English</span>
+                  <span class="lang-level">C2 (Proficient)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right side: Tools Grid -->
+          <div class="tools-grid-section">
+            <h3>Software Proficiency</h3>
+            <p class="tools-intro">Proficient in standard engineering and CAD/CAE tools for modeling, structural and
+              hydrodynamic simulations, automation, and documentation.</p>
+
+            <div class="tools-grid">
+
+              <!-- AutoCAD -->
+              <div class="tool-card">
+                <div class="tool-logo-placeholder">AC</div>
+                <div class="tool-info">
+                  <span class="tool-name">AutoCAD</span>
+                  <span class="tool-type">2D/3D Drafting</span>
+                </div>
+              </div>
+
+              <!-- Rhinoceros 3D -->
+              <div class="tool-card">
+                <div class="tool-logo-placeholder">RH</div>
+                <div class="tool-info">
+                  <span class="tool-name">Rhinoceros 3D</span>
+                  <span class="tool-type">Surface Modeling</span>
+                </div>
+              </div>
+
+              <!-- SolidWorks -->
+              <div class="tool-card">
+                <div class="tool-logo-placeholder">SW</div>
+                <div class="tool-info">
+                  <span class="tool-name">SolidWorks</span>
+                  <span class="tool-type">3D Mechanical CAD</span>
+                </div>
+              </div>
+
+              <!-- ANSYS -->
+              <div class="tool-card">
+                <div class="tool-logo-placeholder">AN</div>
+                <div class="tool-info">
+                  <span class="tool-name">ANSYS</span>
+                  <span class="tool-type">FEA & CFD Solvers</span>
+                </div>
+              </div>
+
+              <!-- Maxsurf -->
+              <div class="tool-card">
+                <div class="tool-logo-placeholder">MS</div>
+                <div class="tool-info">
+                  <span class="tool-name">Maxsurf</span>
+                  <span class="tool-type">Hull Design & Hydrostatics</span>
+                </div>
+              </div>
+
+              <!-- Grasshopper -->
+              <div class="tool-card">
+                <div class="tool-logo-placeholder">GH</div>
+                <div class="tool-info">
+                  <span class="tool-name">Grasshopper</span>
+                  <span class="tool-type">Parametric Modeling</span>
+                </div>
+              </div>
+
+              <!-- MATLAB -->
+              <div class="tool-card">
+                <div class="tool-logo-placeholder">ML</div>
+                <div class="tool-info">
+                  <span class="tool-name">MATLAB</span>
+                  <span class="tool-type">Numerical Analysis</span>
+                </div>
+              </div>
+
+              <!-- Python -->
+              <div class="tool-card">
+                <div class="tool-logo-placeholder">PY</div>
+                <div class="tool-info">
+                  <span class="tool-name">Python</span>
+                  <span class="tool-type">Scripting & ML</span>
+                </div>
+              </div>
+
+              <!-- Blender -->
+              <div class="tool-card">
+                <div class="tool-logo-placeholder">BL</div>
+                <div class="tool-info">
+                  <span class="tool-name">Blender</span>
+                  <span class="tool-type">3D Asset Rendering</span>
+                </div>
+              </div>
+
+              <!-- LaTeX -->
+              <div class="tool-card">
+                <div class="tool-logo-placeholder">TX</div>
+                <div class="tool-info">
+                  <span class="tool-name">LaTeX</span>
+                  <span class="tool-type">Scientific Publishing</span>
+                </div>
+              </div>
+
+              <!-- Star-CCM+ -->
+              <div class="tool-card">
+                <div class="tool-logo-placeholder">SC</div>
+                <div class="tool-info">
+                  <span class="tool-name">Star-CCM+</span>
+                  <span class="tool-type">CFD Analysis Software</span>
+                </div>
+              </div>
+
+              <!-- Microsoft Office -->
+              <div class="tool-card">
+                <div class="tool-logo-placeholder">MO</div>
+                <div class="tool-info">
+                  <span class="tool-name">Microsoft Office</span>
+                  <span class="tool-type">Documentation & Analysis</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="subtitle">Portfolio</span>
+          <h2 class="title">Featured Engineering Projects</h2>
+          <div class="title-underline"></div>
+        </div>
+
+        <div class="projects-grid">
+          <!-- Project 1: Thesis -->
+          <div class="project-card" data-project-id="thesis">
+            <div class="project-image-wrapper">
+              <img src="./assets/images/thesis/thesis (1).png" alt="Bachelor Thesis Ship Collision FEA Simulation"
+                class="project-image">
+              <div class="project-overlay">
+                <span class="view-project-label">View Project Details</span>
+              </div>
+            </div>
+            <div class="project-meta">
+              <span class="project-category">Thesis & Structural FEA</span>
+            </div>
+            <h3 class="project-title">Numerical & Parametric Investigation of Fore Geometry Impact in Collision</h3>
+            <p class="project-summary">Investigated forecastle bulwark geometry influences on ship-ship crossing
+              collisions using explicit non-linear FEA solvers, evaluating penetration, force peaks, and energy
+              dissipation.</p>
+            <div class="project-tags">
+              <span>ANSYS Mechanical</span>
+              <span>LS-Dyna</span>
+              <span>Explicit FEA</span>
+              <span>Collision Dynamics</span>
+            </div>
+            <button class="project-btn open-modal-btn">Explore Case Study</button>
+          </div>
+
+          <!-- Project 2: LNG Carrier -->
+          <div class="project-card" data-project-id="lng">
+            <div class="project-image-wrapper">
+              <img src="./assets/images/lng/LNG (1).jpg" alt="LNG Carrier Ship Design Rendering" class="project-image">
+              <div class="project-overlay">
+                <span class="view-project-label">View Project Details</span>
+              </div>
+            </div>
+            <div class="project-meta">
+              <span class="project-category">Vessel Design & Hydrostatics</span>
+            </div>
+            <h3 class="project-title">Design & Analysis of a 156,000 m³ Liquified Natural Gas (LNG) Carrier</h3>
+            <p class="project-summary">Developed hull dimensions, General Arrangement, lines plan offset tables,
+              intact/damage stability calculations, resistance/power estimation, and 3D modeling for an LNG carrier.</p>
+            <div class="project-tags">
+              <span>Maxsurf</span>
+              <span>Rhinoceros 3D</span>
+              <span>AutoCAD</span>
+              <span>Hydrostatics</span>
+            </div>
+            <button class="project-btn open-modal-btn">Explore Case Study</button>
+          </div>
+
+          <!-- Project 3: Grasshopper Tools -->
+          <div class="project-card" data-project-id="grasshopper">
+            <div class="project-image-wrapper">
+              <img src="./assets/images/parametric/parametric (1).png" alt="Parametric Modeling Turbine and Hull"
+                class="project-image">
+              <div class="project-overlay">
+                <span class="view-project-label">View Project Details</span>
+              </div>
+            </div>
+            <div class="project-meta">
+              <span class="project-category">Grasshopper & Parametric Automation</span>
+            </div>
+            <h3 class="project-title">Self-Developed Parametric Engineering Tools in Grasshopper</h3>
+            <p class="project-summary">Created algorithms for generating customizable horizontal axis wind turbine
+              blades and automating 3D hull transformations, displacement plans, and lines plans directly from offset
+              tables.</p>
+            <div class="project-tags">
+              <span>Grasshopper</span>
+              <span>Rhino 3D</span>
+              <span>Algorithm Design</span>
+              <span>Automation</span>
+            </div>
+            <button class="project-btn open-modal-btn">Explore Case Study</button>
+          </div>
+
+          <!-- Project 4: Spider Robot -->
+          <div class="project-card" data-project-id="spider">
+            <div class="project-image-wrapper">
+              <img src="./assets/images/spider/Spider (1).jpg" alt="Quadruped Spider Robot Layout" class="project-image">
+              <div class="project-overlay">
+                <span class="view-project-label">View Project Details</span>
+              </div>
+            </div>
+            <div class="project-meta">
+              <span class="project-category">Mechatronics & Robotics</span>
+            </div>
+            <h3 class="project-title">Quadruped Obstacle-Detector Spider Robot</h3>
+            <p class="project-summary">Developed a four-legged robotic spider using an Arduino microcontroller,
+              implementing inverse kinematic calculations for limb gait coordination and ultrasonic sensors for obstacle
+              avoidance.</p>
+            <div class="project-tags">
+              <span>Arduino</span>
+              <span>Inverse Kinematics</span>
+              <span>Obstacle Avoidance</span>
+              <span>Path Planning</span>
+            </div>
+            <button class="project-btn open-modal-btn">Explore Case Study</button>
+          </div>
+
+          <!-- Project 5: Firefighting Robot -->
+          <div class="project-card" data-project-id="firefighting">
+            <div class="project-image-wrapper">
+              <img src="./assets/images/firefighting/FF (1).jpg" alt="Arduino Firefighting Robot Vehicle"
+                class="project-image">
+              <div class="project-overlay">
+                <span class="view-project-label">View Project Details</span>
+              </div>
+            </div>
+            <div class="project-meta">
+              <span class="project-category">Electrical & Electronics Lab Project</span>
+            </div>
+            <h3 class="project-title">Arduino-Controlled Automatic Firefighting Robot</h3>
+            <p class="project-summary">Designed and built an autonomous firefighting vehicle in the Electrical &
+              Electronics Lab during B.Sc., equipped with flame sensors, an onboard water pump, and dual
+              autonomous/Bluetooth steering.</p>
+            <div class="project-tags">
+              <span>Arduino</span>
+              <span>Flame Sensors</span>
+              <span>Water Pump</span>
+              <span>Bluetooth Control</span>
+              <span>EE Lab</span>
+            </div>
+            <button class="project-btn open-modal-btn">Explore Case Study</button>
+          </div>
+
+          <!-- Project 6: Heat Exchanger -->
+          <div class="project-card" data-project-id="he">
+            <div class="project-image-wrapper">
+              <img src="./assets/images/he/HE (1).png" alt="CFD Analysis of a Shell and Tube Heat Exchanger"
+                class="project-image">
+              <div class="project-overlay">
+                <span class="view-project-label">View Project Details</span>
+              </div>
+            </div>
+            <div class="project-meta">
+              <span class="project-category">Computational Fluid Dynamics</span>
+            </div>
+            <h3 class="project-title">CFD Analysis of a Shell and Tube Heat Exchanger</h3>
+            <p class="project-summary">Performed numerical simulations in ANSYS Fluent to evaluate structural meshing, fluid flow velocity profiles, heat transfer coefficients, and pressure drop characteristics.</p>
+            <div class="project-tags">
+              <span>ANSYS Fluent</span>
+              <span>CFD Analysis</span>
+              <span>Heat Transfer</span>
+              <span>Flow Dynamics</span>
+            </div>
+            <button class="project-btn open-modal-btn">Explore Case Study</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Designing Section -->
+    <section id="designing" class="projects-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="subtitle">3D Modeling</span>
+          <h2 class="title">My 3D Designs & Models</h2>
+          <div class="title-underline"></div>
+        </div>
+
+        <div class="projects-grid">
+          <!-- Design 1: Shipyard -->
+          <div class="project-card" data-project-id="shipyard">
+            <div class="project-image-wrapper">
+              <img src="./assets/images/shipyard/model.jpg" alt="3D Shipyard Layout Model" class="project-image">
+              <div class="project-overlay">
+                <span class="view-project-label">View Model Details</span>
+              </div>
+            </div>
+            <div class="project-meta">
+              <span class="project-category">Shipyard Infrastructure Design</span>
+            </div>
+            <h3 class="project-title">Comprehensive 3D Shipyard Layout & Infrastructure Model</h3>
+            <p class="project-summary">Designed a detailed 3D CAD layout model of a modern shipyard, featuring dry
+              docks, gantry cranes, slipways, fabrication shops, and auxiliary structural systems.</p>
+            <div class="project-tags">
+              <span>AutoCAD</span>
+              <span>Rhinoceros 3D</span>
+              <span>3D Modeling</span>
+              <span>Infrastructure</span>
+            </div>
+            <button class="project-btn open-modal-btn">Explore Design Case</button>
+          </div>
+
+          <!-- Design 2: Tugboat -->
+          <div class="project-card" data-project-id="tugboat">
+            <div class="project-image-wrapper">
+              <img src="./assets/images/tugboat/model.jpg" alt="3D Harbor Tugboat Design" class="project-image">
+              <div class="project-overlay">
+                <span class="view-project-label">View Model Details</span>
+              </div>
+            </div>
+            <div class="project-meta">
+              <span class="project-category">Vessel Modeling</span>
+            </div>
+            <h3 class="project-title">Detailed Harbor Tugboat 3D Surface & Scantling Model</h3>
+            <p class="project-summary">Constructed a high-fidelity 3D surface model of a harbor tugboat vessel, focusing
+              on hull shape fairing, superstructure styling, and azimuth thruster integrations.</p>
+            <div class="project-tags">
+              <span>Rhinoceros 3D</span>
+              <span>SolidWorks</span>
+              <span>Surface Modeling</span>
+              <span>Tugboat Design</span>
+            </div>
+            <button class="project-btn open-modal-btn">Explore Design Case</button>
+          </div>
+
+          <!-- Design 3: Passenger Ferry -->
+          <div class="project-card" data-project-id="ferry">
+            <div class="project-image-wrapper">
+              <img src="./assets/images/ferry/model (1).png" alt="World Ferry Design Competition Passenger Ferry Model"
+                class="project-image">
+              <div class="project-overlay">
+                <span class="view-project-label">View Model Details</span>
+              </div>
+            </div>
+            <div class="project-meta">
+              <span class="project-category">Ship Design & Hull Modeling</span>
+            </div>
+            <h3 class="project-title">Safe & Eco-Efficient Passenger Ferry Design</h3>
+            <p class="project-summary">Designed an innovative passenger ferry concept for the World Ferry Design Competition, optimizing structural stability, hull form hydrodynamics, and general arrangements.</p>
+            <div class="project-tags">
+              <span>Rhinoceros 3D</span>
+              <span>Maxsurf</span>
+              <span>Vessel Design</span>
+              <span>Eco-Efficiency</span>
+            </div>
+            <button class="project-btn open-modal-btn">Explore Design Case</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience & Education Section -->
+    <section id="experience" class="timeline-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="subtitle">Timeline</span>
+          <h2 class="title">Experience & Education</h2>
+          <div class="title-underline"></div>
+        </div>
+
+        <div class="timeline-container">
+
+          <!-- Experience Column -->
+          <div class="timeline-col">
+            <h3 class="col-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+              </svg>
+              <span>Work & Activities</span>
+            </h3>
+
+            <div class="timeline-items">
+              <!-- Job 1 -->
+              <div class="timeline-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">May 2025 · 1 month</div>
+                <h4 class="timeline-item-title">Internship Trainee</h4>
+                <div class="timeline-org">KHULNA SHIPYARD LIMITED</div>
+                <div class="timeline-location">Khulna, Bangladesh · On-site</div>
+                <ul class="timeline-desc">
+                  <li>Studied naval construction safety workflows and heavy steel fabrication processes.</li>
+                  <li>Gained practical knowledge in marine machinery fabrication, alignment, and quality checklists.
+                  </li>
+                </ul>
+                <div class="timeline-tags">
+                  <span>Shipyard QA/QC</span>
+                  <span>Machine Design</span>
+                  <span>Safety Standards</span>
+                </div>
+                <div class="pub-actions" style="margin-top: 15px;">
+                  <a href="#" class="btn btn-secondary btn-sm" data-link-key="experience.khulnaInternshipPDF" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="margin-right:0.4rem; vertical-align:middle;">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor"></path>
+                      <polyline points="7 10 12 15 17 10" stroke="currentColor"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor"></line>
+                    </svg>
+                    <span>View Certificate (PDF)</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Activity 1 -->
+              <div class="timeline-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">Jan 2026 · NAME Fest</div>
+                <h4 class="timeline-item-title">Director of Graphic Design</h4>
+                <div class="timeline-org">NAME Fest 2026 | organized by NAME Department, MIST</div>
+                <div class="timeline-location">Dhaka, Bangladesh · On-site</div>
+                <ul class="timeline-desc">
+                  <li>Designed all official promotional posters, banners, and digital flyers for the annual festival.
+                  </li>
+                  <li>Coordinated layout formatting for print-ready media materials.</li>
+                </ul>
+                <div class="timeline-tags">
+                  <span>Creative Direction</span>
+                  <span>Graphic Design</span>
+                  <span>Event Coordination</span>
+                </div>
+                <div class="pub-actions" style="margin-top: 15px;">
+                  <a href="#" class="btn btn-secondary btn-sm" data-link-key="experience.nameFestCert" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="margin-right:0.4rem; vertical-align:middle;">
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                      <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                      <polyline points="21 15 16 10 5 21"></polyline>
+                    </svg>
+                    <span>View Certificate</span>
+                  </a>
+                  <a href="#" class="btn btn-tertiary btn-sm" data-link-key="experience.nameFestDesignsPDF" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="margin-right:0.4rem; vertical-align:middle;">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor"></path>
+                      <polyline points="7 10 12 15 17 10" stroke="currentColor"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor"></line>
+                    </svg>
+                    <span>View All Designs (PDF)</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Activity 2 -->
+              <div class="timeline-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">Oct 2024 · SAIL Magazine</div>
+                <h4 class="timeline-item-title">Co-Designer of Departmental Magazine</h4>
+                <div class="timeline-org">NAME Department, MIST (SAIL 6th Edition)</div>
+                <div class="timeline-location">Dhaka, Bangladesh</div>
+                <ul class="timeline-desc">
+                  <li>Collaborated on formatting, typesetting, and illustration layout structures for the annual NAME
+                    magazine.</li>
+                </ul>
+                <div class="timeline-tags">
+                  <span>Typesetting</span>
+                  <span>Editorial Design</span>
+                  <span>Team Collaboration</span>
+                </div>
+                <div class="pub-actions" style="margin-top: 15px;">
+                  <a href="#" class="btn btn-secondary btn-sm" data-link-key="experience.sailMagazinePDF" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="margin-right:0.4rem; vertical-align:middle;">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor"></path>
+                      <polyline points="7 10 12 15 17 10" stroke="currentColor"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor"></line>
+                    </svg>
+                    <span>Download Magazine (PDF)</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Education Column -->
+          <div class="timeline-col">
+            <h3 class="col-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                <path d="M6 12v5c0 2 2.5 3 6 3s6-1 6-3v-5" />
+              </svg>
+              <span>Education</span>
+            </h3>
+
+            <div class="timeline-items">
+              <!-- Education 1 -->
+              <div class="timeline-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">May 2022 - May 2026</div>
+                <h4 class="timeline-item-title">B.Sc. in Naval Architecture & Marine Engineering</h4>
+                <div class="timeline-org">Military Institute of Science and Technology (MIST)</div>
+                <div class="timeline-location">Dhaka, Bangladesh</div>
+                <p class="timeline-desc-simple">
+                  Graduated with a Cumulative GPA of <strong>3.72 / 4.00</strong>. Awarded the <strong>MIST Dean's List
+                    Award</strong> in 2024 and 2025 for maintaining term GPAs of 3.87 and 3.85. Specialized in FEA
+                  simulations, fluid dynamics, and parametric optimization models.
+                </p>
+                <div class="pub-actions" style="margin-top: 15px;">
+                  <a href="#" class="btn btn-secondary btn-sm" data-link-key="education.bscCertificate" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="margin-right:0.4rem; vertical-align:middle;">
+                      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span>B.Sc. Certificate (PDF)</span>
+                  </a>
+                  <a href="#" class="btn btn-secondary btn-sm" data-link-key="education.bscTranscript" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="margin-right:0.4rem; vertical-align:middle;">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                      <line x1="16" y1="13" x2="8" y2="13"></line>
+                      <line x1="16" y1="17" x2="8" y2="17"></line>
+                      <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    <span>Transcript (PDF)</span>
+                  </a>
+                  <a href="#" class="btn btn-secondary btn-sm" data-link-key="education.deansList2024" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="margin-right:0.4rem; vertical-align:middle;">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor"></path>
+                      <polyline points="7 10 12 15 17 10" stroke="currentColor"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor"></line>
+                    </svg>
+                    <span>Dean's List 2024 (PDF)</span>
+                  </a>
+                  <a href="#" class="btn btn-secondary btn-sm" data-link-key="education.deansList2025" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="margin-right:0.4rem; vertical-align:middle;">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor"></path>
+                      <polyline points="7 10 12 15 17 10" stroke="currentColor"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor"></line>
+                    </svg>
+                    <span>Dean's List 2025 (PDF)</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Education 2 -->
+              <div class="timeline-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">2019 - 2022</div>
+                <h4 class="timeline-item-title">Higher Secondary Certificate (Science)</h4>
+                <div class="timeline-org">Satkhira Govt. College</div>
+                <div class="timeline-location">Satkhira, Bangladesh</div>
+                <p class="timeline-desc-simple">
+                  Achieved a GPA of <strong>5.00 / 5.00</strong>.
+                </p>
+              </div>
+
+              <!-- Education 3 -->
+              <div class="timeline-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">2014 - 2019</div>
+                <h4 class="timeline-item-title">Secondary School Certificate (Science)</h4>
+                <div class="timeline-org">Satkhira Govt. High School</div>
+                <div class="timeline-location">Satkhira, Bangladesh</div>
+                <p class="timeline-desc-simple">
+                  Achieved a GPA of <strong>5.00 / 5.00</strong>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Publications Section -->
+    <section id="publications" class="publications-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="subtitle">Research</span>
+          <h2 class="title">Selected Publications & Academic Papers</h2>
+          <div class="title-underline"></div>
+        </div>
+
+        <div class="publications-grid">
+          <!-- Publication 1 -->
+          <div class="pub-card">
+            <div class="pub-badge">B.Sc. Thesis</div>
+            <div class="pub-body">
+              <h3 class="pub-title">Numerical & Parametric Investigation of Fore Geometry Impact in Collision</h3>
+              <p class="pub-citation">
+                <strong>M. R. Hasan</strong>, "Numerical & Parametric Investigation of Fore Geometry Impact in Collision," B.Sc. Thesis, Department of Naval Architecture and Marine Engineering, Military Institute of Science and Technology (MIST), 2026.
+              </p>
+              <p class="pub-abstract">
+                <strong>Abstract:</strong> Evaluates structural crashworthiness and energy dissipation behavior of fore bulkhead structures in high-energy perpendicular collision scenarios. Optimized forecastle geometries successfully distributed structural loads, delaying membrane rupture and increasing energy absorption by 12%.
+              </p>
+              <div class="pub-actions">
+                <a href="#" class="btn btn-secondary btn-sm" data-link-key="publications.thesisPDF" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="margin-right:0.4rem; vertical-align:middle;">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor"></path>
+                    <polyline points="7 10 12 15 17 10" stroke="currentColor"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor"></line>
+                  </svg>
+                  <span>Download Paper PDF</span>
+                </a>
+                <a href="#" class="btn btn-tertiary btn-sm" data-link-key="publications.thesisCode" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="margin-right:0.4rem; vertical-align:middle;">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" stroke="currentColor"></path>
+                  </svg>
+                  <span>View Code & Models</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Publication 2 -->
+          <div class="pub-card">
+            <div class="pub-badge">Technical Review</div>
+            <div class="pub-body">
+              <h3 class="pub-title">Developments in Parametric Modeling and Hull Form Optimization for Modern Marine Vessels: A Review</h3>
+              <p class="pub-citation">
+                <strong>M. R. Hasan</strong>, "Developments in Parametric Modeling and Hull Form Optimization for Modern Marine Vessels: A Review," Technical Paper, NAME Department, MIST, 2025.
+              </p>
+              <p class="pub-abstract">
+                <strong>Abstract:</strong> Assesses state-of-the-art computational workflows using Rhinoceros, Grasshopper, and genetic algorithms to automate hull offsets generation and lines fairing. Establishes critical parameters for optimizing resistance profiles in calm and rough seas.
+              </p>
+              <div class="pub-actions">
+                <a href="#" class="btn btn-secondary btn-sm" data-link-key="publications.reviewPDF" target="_blank" rel="noopener">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14" style="margin-right:0.4rem; vertical-align:middle;">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor"></path>
+                    <polyline points="7 10 12 15 17 10" stroke="currentColor"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor"></line>
+                  </svg>
+                  <span>Download Pre-Print PDF</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="timeline-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="subtitle">Credentials</span>
+          <h2 class="title">Certifications & Training</h2>
+          <div class="title-underline"></div>
+        </div>
+
+        <div class="timeline-container">
+          <!-- Certifications Column 1 -->
+          <div class="timeline-col">
+            <h3 class="col-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              <span>CAE & Analytical Certs</span>
+            </h3>
+            <div class="timeline-items">
+              <!-- Cert 1 -->
+              <div class="timeline-item cert-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">Feb 2026</div>
+                <h4 class="timeline-item-title"><a href="#" data-link-key="certifications.ansysWind" target="_blank">✔️
+                    Wind Blade Analysis for Wind Power</a></h4>
+                <div class="timeline-org">ANSYS</div>
+              </div>
+              <!-- Cert 2 -->
+              <div class="timeline-item cert-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">Dec 2025</div>
+                <h4 class="timeline-item-title"><a href="#" data-link-key="certifications.ansysFluids"
+                    target="_blank">✔️ What Are Fluids?</a></h4>
+                <div class="timeline-org">ANSYS</div>
+              </div>
+              <!-- Cert 3 -->
+              <div class="timeline-item cert-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">Oct 2025</div>
+                <h4 class="timeline-item-title"><a href="#" data-link-key="certifications.udemyRhino" target="_blank">✔️
+                    Rhino 8</a></h4>
+                <div class="timeline-org">Udemy</div>
+              </div>
+              <!-- Cert 4 -->
+              <div class="timeline-item cert-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">Jul 2025</div>
+                <h4 class="timeline-item-title"><a href="#" data-link-key="certifications.hpLifeData" target="_blank">✔️
+                    Data Science and Analytics</a></h4>
+                <div class="timeline-org">HP LIFE</div>
+              </div>
+              <!-- Cert 5 -->
+              <div class="timeline-item cert-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">Jul 2025</div>
+                <h4 class="timeline-item-title"><a href="#" data-link-key="certifications.ansysMechanical"
+                    target="_blank">✔️ Getting Started with Ansys Mechanical</a></h4>
+                <div class="timeline-org">ANSYS</div>
+              </div>
+              <!-- Cert 6 -->
+              <div class="timeline-item cert-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">Apr 2025</div>
+                <h4 class="timeline-item-title"><a href="#" data-link-key="certifications.mathworksML"
+                    target="_blank">✔️ Machine Learning Onramp</a></h4>
+                <div class="timeline-org">MathWorks</div>
+              </div>
+              <!-- Cert 7 -->
+              <div class="timeline-item cert-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">Dec 2024</div>
+                <h4 class="timeline-item-title"><a href="#" data-link-key="certifications.courseraFEM"
+                    target="_blank">✔️ FEM – Linear, Nonlinear Analysis</a></h4>
+                <div class="timeline-org">Coursera / Ansys Academy</div>
+              </div>
+              <!-- Cert 8 -->
+              <div class="timeline-item cert-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">Dec 2024</div>
+                <h4 class="timeline-item-title"><a href="#" data-link-key="certifications.imoBWM" target="_blank">✔️
+                    Ballast Water Management Compliance</a></h4>
+                <div class="timeline-org">International Maritime Organization (IMO)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Certifications Column 2 -->
+          <div class="timeline-col">
+            <h3 class="col-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2 2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <span>CFD, ML & Marine Training</span>
+            </h3>
+            <div class="timeline-items">
+              <!-- Cert 9 -->
+              <div class="timeline-item cert-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">Nov 2024</div>
+                <h4 class="timeline-item-title"><a href="#" data-link-key="certifications.mistCFD" target="_blank">✔️
+                    Introduction to Computational Fluid Dynamics</a></h4>
+                <div class="timeline-org">Department of BME, MIST</div>
+              </div>
+              <!-- Cert 10 -->
+              <div class="timeline-item cert-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">Nov 2024</div>
+                <h4 class="timeline-item-title"><a href="#" data-link-key="certifications.mistDeepLearning"
+                    target="_blank">✔️ Deep Learning Methods for Engineers</a></h4>
+                <div class="timeline-org">Department of BME, MIST</div>
+              </div>
+              <!-- Cert 11 -->
+              <div class="timeline-item cert-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">Nov 2024</div>
+                <h4 class="timeline-item-title"><a href="#" data-link-key="certifications.udemyPythonML"
+                    target="_blank">✔️ Python Machine Learning (Real-World Projects)</a></h4>
+                <div class="timeline-org">Udemy</div>
+              </div>
+              <!-- Cert 12 -->
+              <div class="timeline-item cert-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">June 2024</div>
+                <h4 class="timeline-item-title"><a href="#" data-link-key="certifications.mistMaxsurf"
+                    target="_blank">✔️ Maxsurf and Rhinoceros Certified Course</a></h4>
+                <div class="timeline-org">Department of NAME, MIST</div>
+              </div>
+              <!-- Cert 13 -->
+              <div class="timeline-item cert-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">Feb 2024</div>
+                <h4 class="timeline-item-title"><a href="#" data-link-key="certifications.ansysFluent"
+                    target="_blank">✔️ Intro to Ansys Fluent</a></h4>
+                <div class="timeline-org">ANSYS</div>
+              </div>
+              <!-- Cert 14 -->
+              <div class="timeline-item cert-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">Jan 2024</div>
+                <h4 class="timeline-item-title"><a href="#" data-link-key="certifications.mathworksMatlab"
+                    target="_blank">✔️ MATLAB Onramp</a></h4>
+                <div class="timeline-org">MathWorks</div>
+              </div>
+              <!-- Cert 15 -->
+              <div class="timeline-item cert-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">Dec 2019</div>
+                <h4 class="timeline-item-title"><a href="#" data-link-key="certifications.btebDatabase"
+                    target="_blank">✔️ Database Programming</a></h4>
+                <div class="timeline-org">Bangladesh Technical Education Board</div>
+              </div>
+              <!-- Cert 16 -->
+              <div class="timeline-item cert-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">Aug 2023</div>
+                <h4 class="timeline-item-title"><a href="#" data-link-key="certifications.udemyHtmlCss"
+                    target="_blank">✔️ HTML & CSS Masterclass</a></h4>
+                <div class="timeline-org">Udemy</div>
+              </div>
+              <!-- Cert 17 -->
+              <div class="timeline-item cert-item">
+                <div class="timeline-bullet"></div>
+                <div class="timeline-time">Jun 2023</div>
+                <h4 class="timeline-item-title"><a href="#" data-link-key="certifications.udemyFreelancing"
+                    target="_blank">✔️ Practical Freelancing & Client Acquisition</a></h4>
+                <div class="timeline-org">Udemy</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- My Gallery Section -->
+    <section id="personal-gallery" class="personal-gallery-section">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="subtitle">Moments in Time</span>
+          <h2 class="title">Personal Gallery</h2>
+          <div class="title-underline"></div>
+        </div>
+
+        <div class="pg-slideshow-wrapper">
+          <div class="pg-slides-container">
+            <div class="pg-slide pg-active"><img src="./assets/images/gallery/slide (1).jpg" alt="Professional Portrait"></div>
+            <div class="pg-slide"><img src="./assets/images/gallery/slide (3).jpg" alt="CAD Presentation"></div>
+            <div class="pg-slide"><img src="./assets/images/gallery/slide (4).jpg" alt="Shipyard Fieldwork"></div>
+            <div class="pg-slide"><img src="./assets/images/gallery/slide (5).jpg" alt="Propeller Inspection"></div>
+          </div>
+          
+          <button class="pg-nav-btn pg-prev" aria-label="Previous Slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <button class="pg-nav-btn pg-next" aria-label="Next Slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+
+          <div class="pg-dots-container">
+            <div class="pg-dot pg-active-dot" data-idx="0"></div>
+            <div class="pg-dot" data-idx="1"></div>
+            <div class="pg-dot" data-idx="2"></div>
+            <div class="pg-dot" data-idx="3"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Get In Touch / Footer Section -->
+    <section id="contact" class="contact-section">
+      <div class="section-container">
+        <div class="contact-card-wrapper">
+          <div class="contact-grid">
+
+            <div class="contact-info">
+              <span class="contact-subtitle">Let's Connect</span>
+              <h2 class="contact-title">Eager to Innovate and Research</h2>
+              <p class="contact-desc">
+                I am actively seeking research assistantships, graduate study opportunities (M.S./Ph.D.), or
+                computational engineering roles focusing on structural mechanics, fluid dynamics, and parametric
+                automation. Let's discuss research collaborations or opportunities.
+              </p>
+
+              <div class="contact-methods">
+                <!-- Phone -->
+                <div class="contact-method-item">
+                  <div class="method-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                      <path
+                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                    </svg>
+                  </div>
+                  <div class="method-details">
+                    <span class="method-label">Direct Phone</span>
+                    <a href="tel:+8801521798794" class="method-value">+880 1521798794</a>
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div class="contact-method-item">
+                  <div class="method-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                      <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                  </div>
+                  <div class="method-details">
+                    <span class="method-label">Email Address</span>
+                    <a href="mailto:rokibulhasan9102@gmail.com" class="method-value">rokibulhasan9102@gmail.com</a>
+                  </div>
+                </div>
+
+                <!-- Social Profiles Row -->
+                <div class="contact-social-row">
+                  <a href="https://github.com/rokibul-mist" target="_blank" rel="noopener" aria-label="GitHub"
+                    class="social-icon-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                      <path
+                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                    </svg>
+                  </a>
+                  <a href="https://www.linkedin.com/in/rokibul-mist/" target="_blank" rel="noopener"
+                    aria-label="LinkedIn" class="social-icon-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                      <rect x="2" y="9" width="4" height="12" />
+                      <circle cx="4" cy="4" r="2" />
+                    </svg>
+                  </a>
+                  <a href="https://www.researchgate.net/profile/Md-Rokibul-Hasan-5" target="_blank" rel="noopener"
+                    aria-label="ResearchGate" class="social-icon-btn text-icon">
+                    RG
+                  </a>
+                  <a href="https://www.youtube.com/@ParametricShipLab" target="_blank" rel="noopener"
+                    aria-label="YouTube Channel" class="social-icon-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                      <path
+                        d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
+                      <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Copy Email Widget -->
+              <div class="copy-email-widget">
+                <span class="copy-text">rokibulhasan9102@gmail.com</span>
+                <button id="copy-email-btn" class="btn btn-tertiary">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"
+                    class="copy-icon">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                  </svg>
+                  <span class="btn-text">Copy Email</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Simple interactive message box -->
+            <div class="contact-form-wrapper">
+              <h3>Send Quick Message</h3>
+              <form id="contact-form" class="contact-form" action="#" method="POST">
+                <div class="form-group">
+                  <label for="form-name">Name</label>
+                  <input type="text" id="form-name" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                  <label for="form-email">Email</label>
+                  <input type="email" id="form-email" required placeholder="john@example.com">
+                </div>
+                <div class="form-group">
+                  <label for="form-message">Message</label>
+                  <textarea id="form-message" rows="4" required
+                    placeholder="Hey Rokibul, let's connect for an opportunity..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">
+                  <span>Send Message</span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                    <line x1="22" y1="2" x2="11" y2="13" />
+                    <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                  </svg>
+                </button>
+              </form>
+              <div id="form-feedback" class="form-feedback hidden">Message simulated successfully! Thank you for
+                reaching out.</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Footer Footer -->
+        <footer class="site-footer">
+          <p class="copyright">&copy; 2026 Md. Rokibul Hasan. All rights reserved. Designed with parametric precision.
+          </p>
+          <div class="footer-links">
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#experience">Timeline</a>
+          </div>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <!-- Case Study Modals (Rendered dynamically / hidden by default) -->
+  <div class="modal-backdrop" id="project-modal">
+    <div class="modal-card">
+      <button class="modal-close-btn" aria-label="Close modal">&times;</button>
+      <div class="modal-body-content" id="modal-dynamic-content">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating CV Action Button -->
+  <a href="#" id="floating-cv-btn" class="floating-cv-btn" target="_blank" rel="noopener" aria-label="Download CV">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="floating-cv-icon">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+      <polyline points="14 2 14 8 20 8"></polyline>
+      <line x1="16" y1="13" x2="8" y2="13"></line>
+      <line x1="16" y1="17" x2="8" y2="17"></line>
+      <polyline points="10 9 9 9 8 9"></polyline>
+    </svg>
+    <span class="floating-cv-text">Download CV</span>
+  </a>
+
+  <!-- Custom Neon Glowing Cursor -->
+  <div class="custom-cursor" id="custom-cursor"></div>
+  <div class="custom-cursor-glow" id="custom-cursor-glow"></div>
+
+  <!-- JavaScript files -->
+  <script src="links.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
