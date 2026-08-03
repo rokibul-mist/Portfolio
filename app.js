@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const mouse = {
       x: null,
       y: null,
-      radius: 120 // Proximity radius for repulsion
+      radius: 120
     };
 
     function resizeCanvas() {
@@ -91,11 +91,11 @@ document.addEventListener("DOMContentLoaded", () => {
     function getThemeColor(alpha) {
       const isLight = document.body.classList.contains("light-mode");
       if (isLight) {
-        // Boost alpha on light background for sufficient contrast visibility
         const boostedAlpha = Math.min(1.0, alpha * 2.8);
         return `rgba(0, 90, 200, ${boostedAlpha})`;
       } else {
-        return `rgba(0, 229, 255, ${alpha})`;
+        const boostedAlpha = Math.min(1.0, alpha * 1.35);
+        return `rgba(0, 229, 255, ${boostedAlpha})`;
       }
     }
 
@@ -103,37 +103,41 @@ document.addEventListener("DOMContentLoaded", () => {
       constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.baseX = x;
-        this.baseY = y;
-        this.vx = (Math.random() - 0.5) * 0.4;
-        this.vy = (Math.random() - 0.5) * 0.4;
-        this.size = Math.random() * 2 + 1;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.baseSize = Math.random() * 2 + 1;
+        this.pulseAngle = Math.random() * Math.PI * 2;
+        this.pulseSpeed = Math.random() * 0.02 + 0.01;
       }
 
       draw() {
-        ctx.fillStyle = getThemeColor(0.45);
+        this.pulseAngle += this.pulseSpeed;
+        const pulse = (Math.sin(this.pulseAngle) + 1) * 0.5;
+        const currentSize = this.baseSize + pulse * 0.8;
+        const alpha = 0.35 + pulse * 0.25;
+
+        // Outer glow halo ring
+        ctx.fillStyle = getThemeColor(alpha * 0.2);
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, currentSize * 2.2, 0, Math.PI * 2);
         ctx.closePath();
         ctx.fill();
 
-        // Randomly draw coordinate readout labels next to some particles
-        if (Math.random() > 0.998) {
-          ctx.font = "7px monospace";
-          ctx.fillStyle = getThemeColor(0.25);
-          ctx.fillText(`X:${Math.round(this.x)} Y:${Math.round(this.y)}`, this.x + 5, this.y - 5);
-        }
+        // Solid core dot
+        ctx.fillStyle = getThemeColor(alpha);
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, currentSize, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.fill();
       }
 
       update() {
         this.x += this.vx;
         this.y += this.vy;
 
-        // Boundary bounce
         if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
         if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
 
-        // Mouse interaction (Repulsion)
         if (mouse.x !== null && mouse.y !== null) {
           let dx = mouse.x - this.x;
           let dy = mouse.y - this.y;
@@ -151,8 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function initParticles() {
       particles = [];
-      // Dynamic count based on screen size
-      let particleCount = Math.min(Math.floor((canvas.width * canvas.height) / 18000), 75);
+      let particleCount = Math.min(Math.floor((canvas.width * canvas.height) / 16000), 75);
       for (let i = 0; i < particleCount; i++) {
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
@@ -162,15 +165,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function connectParticles() {
       for (let i = 0; i < particles.length; i++) {
-        // Connect to other particles
         for (let j = i + 1; j < particles.length; j++) {
           let dx = particles[i].x - particles[j].x;
           let dy = particles[i].y - particles[j].y;
           let distance = Math.sqrt(dx * dx + dy * dy);
 
           if (distance < 140) {
-            ctx.strokeStyle = getThemeColor((1 - distance / 140) * 0.15);
-            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = getThemeColor((1 - distance / 140) * 0.18);
+            ctx.lineWidth = 0.55;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -178,15 +180,14 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }
 
-        // Connect to mouse cursor
         if (mouse.x !== null && mouse.y !== null) {
           let dx = mouse.x - particles[i].x;
           let dy = mouse.y - particles[i].y;
           let distance = Math.sqrt(dx * dx + dy * dy);
 
           if (distance < 150) {
-            ctx.strokeStyle = getThemeColor((1 - distance / 150) * 0.18);
-            ctx.lineWidth = 0.55;
+            ctx.strokeStyle = getThemeColor((1 - distance / 150) * 0.25);
+            ctx.lineWidth = 0.7;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(mouse.x, mouse.y);
@@ -199,7 +200,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // Draw static blueprint division axis lines
       ctx.strokeStyle = getThemeColor(0.015);
       ctx.lineWidth = 1;
       ctx.beginPath();
@@ -232,6 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
     resizeCanvas();
     animate();
   }
+
 
   /* ==========================================================================
      3. Scroll Mechanics (Progress Bar, Header Shrink, Active Nav Items)
@@ -1250,7 +1251,84 @@ document.addEventListener("DOMContentLoaded", () => {
     startAutoPlay();
   }
 
+  /* ==========================================================================
+     Project Category Filtering Engine
+     ========================================================================== */
+  function initProjectFilters() {
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    const projectCards = document.querySelectorAll(".projects-grid .project-card");
+
+    if (!filterBtns.length || !projectCards.length) return;
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        filterBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        const targetFilter = btn.getAttribute("data-filter");
+
+        projectCards.forEach(card => {
+          const category = card.getAttribute("data-category");
+
+          if (targetFilter === "all" || category === targetFilter) {
+            card.style.display = "flex";
+            setTimeout(() => {
+              card.style.opacity = "1";
+              card.style.transform = "translateY(0) scale(1)";
+            }, 10);
+          } else {
+            card.style.opacity = "0";
+            card.style.transform = "scale(0.95)";
+            setTimeout(() => {
+              card.style.display = "none";
+            }, 300);
+          }
+        });
+      });
+    });
+  }
+
+  /* ==========================================================================
+     Mouse Spotlight & Section Nav Dots Engine
+     ========================================================================== */
+  function initMouseSpotlight() {
+    const spotlight = document.getElementById("mouse-spotlight");
+    if (!spotlight) return;
+
+    window.addEventListener("mousemove", (e) => {
+      spotlight.style.opacity = "1";
+      spotlight.style.left = e.clientX + "px";
+      spotlight.style.top = e.clientY + "px";
+    });
+
+    document.addEventListener("mouseleave", () => {
+      spotlight.style.opacity = "0";
+    });
+  }
+
   initCustomCursor();
   initCardThumbnailCycler();
   initPersonalGallery();
+  initProjectFilters();
+  initMouseSpotlight();
+
+  /* Citation Copy Engine */
+  const copyBtns = document.querySelectorAll(".copy-citation-btn");
+  copyBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const citation = btn.getAttribute("data-citation");
+      if (citation) {
+        navigator.clipboard.writeText(citation).then(() => {
+          const span = btn.querySelector("span");
+          const originalText = span.textContent;
+          span.textContent = "Copied!";
+          btn.style.borderColor = "var(--primary)";
+          setTimeout(() => {
+            span.textContent = originalText;
+            btn.style.borderColor = "";
+          }, 2000);
+        });
+      }
+    });
+  });
 });

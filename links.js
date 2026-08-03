@@ -9,7 +9,7 @@
 
 const portfolioLinks = {
   // Resume / CV PDF Download Link
-  resume: "./assets/cv/rokibul_cv.pdf",
+  resume: "./assets/cv/Resume.pdf",
 
   // Projects Documents (Google Drive Links)
   projects: {
