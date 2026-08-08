@@ -30,6 +30,8 @@ const portfolioLinks = {
 
   // Selected Publications & Pre-prints Documents
   publications: {
+    tidalPreprintPDF: "https://www.preprints.org/manuscript/202607.1690/v1",
+    tidalPreprintDOI: "https://doi.org/10.20944/preprints202607.1690.v1",
     thesisPDF: "https://drive.google.com/file/d/1ckT_wW8sjlzo2zM38j0f9yCpcq2T0Tab/view?usp=drive_link",
     thesisCode: "https://drive.google.com/drive/folders/1qIb1xsXWCI6PpcUi_IyLAlnfl9yEhBoe?usp=drive_link",
     reviewPDF: "https://www.opastpublishers.com/open-access-articles/advancements-in-automation--parametric-modeling-in-ship-design-review-of-current-technologies.pdf"
