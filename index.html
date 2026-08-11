@@ -29,10 +29,30 @@
 
 <body>
 
+  <!-- Aurora Background Orbs (GPU-animated, smooth gradient blobs) -->
+  <div id="aurora-bg" aria-hidden="true">
+    <div class="aurora-orb aurora-orb-1"></div>
+    <div class="aurora-orb aurora-orb-2"></div>
+    <div class="aurora-orb aurora-orb-3"></div>
+  </div>
+
   <!-- Background Blueprint Canvas & Mouse Spotlight -->
   <canvas id="blueprint-canvas"></canvas>
   <div class="blueprint-grid-overlay"></div>
   <div id="mouse-spotlight"></div>
+
+
+  <!-- Electronic Glitch Overlay System -->
+  <div id="glitch-overlay" aria-hidden="true">
+    <div class="glitch-scanlines"></div>
+    <div class="glitch-slice" id="glitch-slice-1"></div>
+    <div class="glitch-slice" id="glitch-slice-2"></div>
+    <div class="glitch-slice" id="glitch-slice-3"></div>
+    <div class="glitch-rgb-r" id="glitch-rgb-r"></div>
+    <div class="glitch-rgb-b" id="glitch-rgb-b"></div>
+    <div class="glitch-flash" id="glitch-flash"></div>
+  </div>
+
 
   <!-- Fixed Floating Contact & Social Bar -->
   <aside class="fixed-contact-bar" aria-label="Social & Contact Links">
@@ -186,6 +206,9 @@
             </div>
             <div class="profile-coord-orbit orbit-4">
               <span class="profile-coord float-slow-4">CAD</span>
+            </div>
+            <div class="profile-coord-orbit orbit-5">
+              <span class="profile-coord float-slow-1">ML</span>
             </div>
           </div>
         </div>

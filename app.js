@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ==========================================================================
-     2. Interactive Blueprint Canvas (Particle Grid)
+     2. Interactive Blueprint Canvas (Particle Grid) — ENHANCED
      ========================================================================== */
   const canvas = document.getElementById("blueprint-canvas");
   if (canvas) {
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const mouse = {
       x: null,
       y: null,
-      radius: 120
+      radius: 150
     };
 
     function resizeCanvas() {
@@ -91,35 +91,58 @@ document.addEventListener("DOMContentLoaded", () => {
     function getThemeColor(alpha) {
       const isLight = document.body.classList.contains("light-mode");
       if (isLight) {
-        const boostedAlpha = Math.min(1.0, alpha * 2.8);
-        return `rgba(0, 90, 200, ${boostedAlpha})`;
+        const boostedAlpha = Math.min(1.0, alpha * 2.2);
+        return `rgba(18, 24, 38, ${boostedAlpha})`;
       } else {
         const boostedAlpha = Math.min(1.0, alpha * 1.35);
         return `rgba(0, 229, 255, ${boostedAlpha})`;
       }
     }
 
+    // Skill badges attraction targets (CFD, FSI, FEM, CAD, ML)
+    let orbitTargets = [];
+
+    function updateOrbitTargets() {
+      orbitTargets = [];
+      const coordEls = document.querySelectorAll(".profile-coord");
+      coordEls.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.width > 0 && rect.height > 0 && rect.top >= -100 && rect.bottom <= window.innerHeight + 100) {
+          orbitTargets.push({
+            x: rect.left + rect.width / 2,
+            y: rect.top + rect.height / 2
+          });
+        }
+      });
+    }
+
     class Particle {
-      constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
-        this.baseSize = Math.random() * 2 + 1;
+      constructor() {
+        this.reset(true);
+      }
+
+      reset(init = false) {
+        this.x = Math.random() * canvas.width;
+        this.y = init ? Math.random() * canvas.height : canvas.height + 20;
+        this.vx = (Math.random() - 0.5) * 0.7;
+        this.vy = (Math.random() - 0.5) * 0.7;
+        this.baseSize = Math.random() * 1.8 + 0.8;
         this.pulseAngle = Math.random() * Math.PI * 2;
-        this.pulseSpeed = Math.random() * 0.02 + 0.01;
+        this.pulseSpeed = Math.random() * 0.025 + 0.012;
+        this.opacity = Math.random() * 0.5 + 0.25;
+        this.speed = Math.random() * 0.5 + 0.2;
       }
 
       draw() {
         this.pulseAngle += this.pulseSpeed;
         const pulse = (Math.sin(this.pulseAngle) + 1) * 0.5;
-        const currentSize = this.baseSize + pulse * 0.8;
-        const alpha = 0.35 + pulse * 0.25;
+        const currentSize = this.baseSize + pulse * 0.9;
+        const alpha = this.opacity * (0.5 + pulse * 0.5);
 
         // Outer glow halo ring
-        ctx.fillStyle = getThemeColor(alpha * 0.2);
+        ctx.fillStyle = getThemeColor(alpha * 0.25);
         ctx.beginPath();
-        ctx.arc(this.x, this.y, currentSize * 2.2, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, currentSize * 2.4, 0, Math.PI * 2);
         ctx.closePath();
         ctx.fill();
 
@@ -131,23 +154,43 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.fill();
       }
 
-      update() {
+      update(targets) {
         this.x += this.vx;
         this.y += this.vy;
 
         if (this.x < 0 || this.x > canvas.width) this.vx = -this.vx;
         if (this.y < 0 || this.y > canvas.height) this.vy = -this.vy;
 
+        // Gentle attraction toward orbiting skill tags (CFD, FSI, FEM, CAD, ML)
+        if (targets && targets.length > 0) {
+          const attractRadius = 200;
+          for (let i = 0; i < targets.length; i++) {
+            let target = targets[i];
+            let dx = target.x - this.x;
+            let dy = target.y - this.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < attractRadius && distance > 10) {
+              let force = (attractRadius - distance) / attractRadius;
+              let angle = Math.atan2(dy, dx);
+              // Subtle magnetic pull toward tag
+              this.x += Math.cos(angle) * force * 0.95;
+              this.y += Math.sin(angle) * force * 0.95;
+            }
+          }
+        }
+
+        // Mouse repulsion
         if (mouse.x !== null && mouse.y !== null) {
           let dx = mouse.x - this.x;
           let dy = mouse.y - this.y;
           let distance = Math.sqrt(dx * dx + dy * dy);
-          
+
           if (distance < mouse.radius) {
             let force = (mouse.radius - distance) / mouse.radius;
             let angle = Math.atan2(dy, dx);
-            this.x -= Math.cos(angle) * force * 2;
-            this.y -= Math.sin(angle) * force * 2;
+            this.x -= Math.cos(angle) * force * 2.5;
+            this.y -= Math.sin(angle) * force * 2.5;
           }
         }
       }
@@ -155,24 +198,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function initParticles() {
       particles = [];
-      let particleCount = Math.min(Math.floor((canvas.width * canvas.height) / 16000), 75);
+      // More particles for denser feel
+      let particleCount = Math.min(Math.floor((canvas.width * canvas.height) / 10000), 110);
       for (let i = 0; i < particleCount; i++) {
-        let x = Math.random() * canvas.width;
-        let y = Math.random() * canvas.height;
-        particles.push(new Particle(x, y));
+        particles.push(new Particle());
       }
     }
 
-    function connectParticles() {
+    function connectParticles(targets) {
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           let dx = particles[i].x - particles[j].x;
           let dy = particles[i].y - particles[j].y;
           let distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < 140) {
-            ctx.strokeStyle = getThemeColor((1 - distance / 140) * 0.18);
-            ctx.lineWidth = 0.55;
+          const maxDist = 160;
+          if (distance < maxDist) {
+            const alpha = (1 - distance / maxDist) * 0.22;
+            ctx.strokeStyle = getThemeColor(alpha);
+            ctx.lineWidth = 0.6;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -180,14 +223,36 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }
 
+        // Connect particles to nearby orbiting skill badges
+        if (targets && targets.length > 0) {
+          for (let k = 0; k < targets.length; k++) {
+            let target = targets[k];
+            let dx = target.x - particles[i].x;
+            let dy = target.y - particles[i].y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            const maxDist = 150;
+            if (distance < maxDist) {
+              const alpha = (1 - distance / maxDist) * 0.38;
+              ctx.strokeStyle = getThemeColor(alpha);
+              ctx.lineWidth = 0.75;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(target.x, target.y);
+              ctx.stroke();
+            }
+          }
+        }
+
+        // Mouse connections
         if (mouse.x !== null && mouse.y !== null) {
           let dx = mouse.x - particles[i].x;
           let dy = mouse.y - particles[i].y;
           let distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < 150) {
-            ctx.strokeStyle = getThemeColor((1 - distance / 150) * 0.25);
-            ctx.lineWidth = 0.7;
+          const maxDist = 180;
+          if (distance < maxDist) {
+            const alpha = (1 - distance / maxDist) * 0.35;
+            ctx.strokeStyle = getThemeColor(alpha);
+            ctx.lineWidth = 0.8;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(mouse.x, mouse.y);
@@ -199,23 +264,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      ctx.strokeStyle = getThemeColor(0.015);
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(0, canvas.height / 2);
-      ctx.lineTo(canvas.width, canvas.height / 2);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(canvas.width / 2, 0);
-      ctx.lineTo(canvas.width / 2, canvas.height);
-      ctx.stroke();
+      updateOrbitTargets();
 
       for (let i = 0; i < particles.length; i++) {
-        particles[i].update();
+        particles[i].update(orbitTargets);
         particles[i].draw();
       }
-      connectParticles();
+      connectParticles(orbitTargets);
       requestAnimationFrame(animate);
     }
 
@@ -231,6 +286,105 @@ document.addEventListener("DOMContentLoaded", () => {
 
     resizeCanvas();
     animate();
+  }
+
+  /* ==========================================================================
+     2b. Kinetic Cursor Trail (dot + lagging ring)
+     ========================================================================== */
+  function initCursorTrail() {
+    // Inject cursor elements into DOM
+    const dot  = document.createElement("div");
+    dot.className = "cursor-dot";
+    const ring = document.createElement("div");
+    ring.className = "cursor-ring";
+    document.body.appendChild(dot);
+    document.body.appendChild(ring);
+
+    let ringX = -100, ringY = -100;
+    let dotX = -100, dotY = -100;
+    let raf;
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function tick() {
+      ringX = lerp(ringX, dotX, 0.14);
+      ringY = lerp(ringY, dotY, 0.14);
+      ring.style.left = ringX + "px";
+      ring.style.top  = ringY + "px";
+      raf = requestAnimationFrame(tick);
+    }
+
+    window.addEventListener("mousemove", (e) => {
+      dotX = e.clientX;
+      dotY = e.clientY;
+      dot.style.left = dotX + "px";
+      dot.style.top  = dotY + "px";
+    });
+
+    document.addEventListener("mousedown", () => {
+      dot.classList.add("clicking");
+      ring.classList.add("clicking");
+    });
+    document.addEventListener("mouseup", () => {
+      dot.classList.remove("clicking");
+      ring.classList.remove("clicking");
+    });
+    document.addEventListener("mouseleave", () => {
+      dot.style.opacity  = "0";
+      ring.style.opacity = "0";
+    });
+    document.addEventListener("mouseenter", () => {
+      dot.style.opacity  = "1";
+      ring.style.opacity = "1";
+    });
+
+    tick();
+  }
+
+  /* ==========================================================================
+     2c. Scroll Reveal — IntersectionObserver Engine
+     ========================================================================== */
+  function initScrollReveal() {
+    // Mark standalone reveal elements
+    document.querySelectorAll(".section-header, .about-bio, .about-focus-grid, .focus-card, .project-card, .tool-card, .timeline-col, .pub-card, .contact-form-wrapper, .contact-info-block").forEach(el => {
+      if (!el.classList.contains("reveal") && !el.classList.contains("reveal-stagger")) {
+        el.classList.add("reveal");
+      }
+    });
+
+    // Mark grid containers for stagger
+    document.querySelectorAll(".focus-grid, .projects-grid, .tools-grid, .publications-grid").forEach(grid => {
+      grid.classList.add("reveal-stagger");
+    });
+
+    // Observer for individual .reveal elements
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+
+          // Trigger title underline sweep on section headers
+          if (entry.target.classList.contains("section-header")) {
+            entry.target.classList.add("visible");
+          }
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -50px 0px" });
+
+    document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+    // Observer for stagger grids
+    const staggerObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          staggerObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: "0px 0px -30px 0px" });
+
+    document.querySelectorAll(".reveal-stagger").forEach(el => staggerObserver.observe(el));
   }
 
 
@@ -1306,11 +1460,45 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  /* ==========================================================================
+     Profile Photo Hyperdrive Speed Boost
+     ========================================================================== */
+  function initProfilePhotoBoost() {
+    const photoFrame = document.querySelector(".profile-photo-frame");
+    const visualWrapper = document.querySelector(".profile-visual-wrapper");
+
+    if (!photoFrame || !visualWrapper) return;
+
+    let boostTimer = null;
+
+    photoFrame.addEventListener("click", () => {
+      visualWrapper.classList.add("boost-active");
+
+      // Visual glitch burst feedback
+      const glitchOverlay = document.getElementById("glitch-overlay");
+      if (glitchOverlay) {
+        glitchOverlay.classList.add("hard-glitch");
+        setTimeout(() => glitchOverlay.classList.remove("hard-glitch"), 280);
+      }
+
+      if (boostTimer) clearTimeout(boostTimer);
+
+      // Boost stays active for 4.5 seconds per click
+      boostTimer = setTimeout(() => {
+        visualWrapper.classList.remove("boost-active");
+      }, 4500);
+    });
+  }
+
   initCustomCursor();
   initCardThumbnailCycler();
   initPersonalGallery();
   initProjectFilters();
   initMouseSpotlight();
+  initCursorTrail();
+  initScrollReveal();
+  initProfilePhotoBoost();
+
 
   /* Citation Copy Engine */
   const copyBtns = document.querySelectorAll(".copy-citation-btn");
@@ -1332,3 +1520,95 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+/* ==========================================================================
+   ELECTRONIC GLITCH ENGINE — fires independently of DOMContentLoaded
+   ========================================================================== */
+(function initGlitchEngine() {
+  const overlay    = document.getElementById("glitch-overlay");
+  const slices     = [
+    document.getElementById("glitch-slice-1"),
+    document.getElementById("glitch-slice-2"),
+    document.getElementById("glitch-slice-3"),
+  ];
+  const rgbR       = document.getElementById("glitch-rgb-r");
+  const rgbB       = document.getElementById("glitch-rgb-b");
+  const flash      = document.getElementById("glitch-flash");
+
+  if (!overlay || !slices[0]) return;
+
+  // ── Helpers ──────────────────────────────────────────────────────────────
+  function rand(min, max) { return Math.random() * (max - min) + min; }
+  function randInt(min, max) { return Math.floor(rand(min, max + 1)); }
+
+  function trigger(el, durationMs) {
+    el.classList.remove("active");
+    void el.offsetWidth; // reflow to restart animation
+    el.classList.add("active");
+    setTimeout(() => el.classList.remove("active"), durationMs + 50);
+  }
+
+  // ── Position a slice at a random vertical band ────────────────────────────
+  function positionSlice(el) {
+    const h = rand(2, 60);                        // band height in px
+    const y = rand(0, window.innerHeight - h);    // top offset
+    el.style.top    = y + "px";
+    el.style.height = h + "px";
+  }
+
+  // ── Minor glitch: 1–2 slices + optional RGB shift ────────────────────────
+  function minorGlitch() {
+    const count = randInt(1, 2);
+    for (let i = 0; i < count; i++) {
+      const sl = slices[randInt(0, slices.length - 1)];
+      positionSlice(sl);
+      setTimeout(() => trigger(sl, 160), i * 40);
+    }
+    // 50% chance of RGB shift
+    if (Math.random() > 0.5) {
+      setTimeout(() => { trigger(rgbR, 220); trigger(rgbB, 220); }, 30);
+    }
+  }
+
+  // ── Major glitch: all slices + RGB + flash + hard-glitch class ───────────
+  function majorGlitch() {
+    slices.forEach((sl, i) => {
+      positionSlice(sl);
+      setTimeout(() => trigger(sl, 160), i * 35);
+    });
+    trigger(rgbR, 220);
+    trigger(rgbB, 220);
+    setTimeout(() => trigger(flash, 120), 60);
+
+    // Full-overlay hue-rotation spasm
+    overlay.classList.add("hard-glitch");
+    setTimeout(() => overlay.classList.remove("hard-glitch"), 300);
+  }
+
+  // ── Rapid-fire burst (3–5 hits in quick succession) ──────────────────────
+  function burstGlitch() {
+    const hits = randInt(3, 5);
+    for (let i = 0; i < hits; i++) {
+      setTimeout(minorGlitch, i * rand(60, 120));
+    }
+  }
+
+  // ── Scheduler: random intervals, weighted towards minor ──────────────────
+  function scheduleNext() {
+    // Wait 2.5 – 9 seconds between events
+    const delay = rand(2500, 9000);
+
+    setTimeout(() => {
+      const roll = Math.random();
+      if (roll < 0.55)      minorGlitch();   // 55% — subtle flicker
+      else if (roll < 0.80) burstGlitch();   // 25% — quick burst
+      else if (roll < 0.95) majorGlitch();   // 15% — full spasm
+      // 5% miss — nothing fires, natural silence
+
+      scheduleNext();
+    }, delay);
+  }
+
+  // Kick off after a short settle time so it doesn't fire on page load
+  setTimeout(scheduleNext, rand(1500, 3500));
+})();
