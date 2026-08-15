@@ -2386,139 +2386,452 @@ body.light-mode .gallery-caption {
   }
 }
 
+/* ==========================================================================
+   MOBILE — 768px and below
+   ========================================================================== */
 @media (max-width: 768px) {
+
+  /* ── Global spacing tightening ── */
+  .section-container {
+    padding: 3rem 1.25rem;
+  }
+
+  /* ── Header ── */
+  .header-container {
+    padding: 1rem 1.25rem;
+  }
+
+  .mobile-nav-toggle {
+    display: flex;
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── Mobile Nav Drawer ── */
+  .main-nav {
+    z-index: 99;
+    width: 100%;
+    height: calc(100dvh - 64px); /* use dvh for accurate mobile viewport */
+    border-top: 1px solid var(--border-color);
+    background-color: rgba(5, 11, 20, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 2.5rem 1.5rem 3rem;
+    position: fixed;
+    top: 64px;
+    left: 0;
+    transform: translateX(-100%);          /* slide from left instead of left:-100% */
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .main-nav.active {
+    transform: translateX(0);
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    width: 100%;
+  }
+
+  .main-nav li {
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .nav-link {
+    width: 100%;
+    font-size: 1.15rem;
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;                        /* big tap target */
+    min-height: 56px;
+  }
+
+  .nav-btn {
+    text-align: center;
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 0.9rem 1.5rem;
+    min-height: 52px;
+  }
+
+  /* Hamburger close animation */
+  .mobile-nav-toggle.active .bar:first-child {
+    transform: rotate(45deg) translate(5px, 6px);
+  }
+  .mobile-nav-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .mobile-nav-toggle.active .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -7px);
+  }
+
+  /* ── Hero Section ── */
+  .hero-section {
+    min-height: 100dvh;
+    padding-top: 64px;
+    align-items: flex-start;
+  }
+
   .hero-container {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: 4rem;
+    gap: 3rem;
+    padding-top: 2.5rem;
+    padding-bottom: 5rem;
   }
-  
+
+  .hero-visual {
+    order: -1;                              /* photo appears above text */
+  }
+
   .hero-title {
-    font-size: 2.85rem;
+    font-size: 2.3rem;
+    line-height: 1.2;
   }
-  
+
+  .hero-subtitle {
+    font-size: 1.35rem;
+  }
+
   .hero-description {
+    font-size: 0.97rem;
     margin-left: auto;
     margin-right: auto;
+    text-align: left;
   }
-  
+
   .hero-actions {
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
   }
-  
+
+  .hero-actions .btn {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+    min-height: 52px;
+  }
+
+  .status-pill {
+    font-size: 0.72rem;
+    padding: 0.4rem 0.9rem;
+  }
+
+  /* ── Profile Orbit System ── */
+  .profile-visual-wrapper {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+  }
+
+  .profile-photo-frame {
+    width: 180px;
+    height: 180px;
+  }
+
+  .profile-ring.ring-1 {
+    width: 220px;
+    height: 220px;
+  }
+
+  .profile-ring.ring-2 {
+    width: 258px;
+    height: 258px;
+  }
+
+  .profile-ring.ring-3 {
+    display: none;
+  }
+
+  /* Scale down orbit radius for smaller screen */
+  .orbit-1 { animation: orbit1-sm 30s linear infinite; }
+  .orbit-2 { animation: orbit2-sm 30s linear infinite; }
+  .orbit-3 { animation: orbit3-sm 30s linear infinite; }
+  .orbit-4 { animation: orbit4-sm 30s linear infinite; }
+  .orbit-5 { animation: orbit5-sm 30s linear infinite; }
+
+  @keyframes orbit1-sm {
+    0%   { transform: rotate(0deg)   translate(120px) rotate(0deg); }
+    100% { transform: rotate(360deg) translate(120px) rotate(-360deg); }
+  }
+  @keyframes orbit2-sm {
+    0%   { transform: rotate(72deg)  translate(120px) rotate(-72deg); }
+    100% { transform: rotate(432deg) translate(120px) rotate(-432deg); }
+  }
+  @keyframes orbit3-sm {
+    0%   { transform: rotate(144deg) translate(120px) rotate(-144deg); }
+    100% { transform: rotate(504deg) translate(120px) rotate(-504deg); }
+  }
+  @keyframes orbit4-sm {
+    0%   { transform: rotate(216deg) translate(120px) rotate(-216deg); }
+    100% { transform: rotate(576deg) translate(120px) rotate(-576deg); }
+  }
+  @keyframes orbit5-sm {
+    0%   { transform: rotate(288deg) translate(120px) rotate(-288deg); }
+    100% { transform: rotate(648deg) translate(120px) rotate(-648deg); }
+  }
+
+  .profile-coord {
+    font-size: 0.68rem;
+    padding: 0.18rem 0.45rem;
+  }
+
+  /* ── Scroll Down Indicator ── */
+  .scroll-down-indicator {
+    bottom: 1.5rem;
+  }
+
+  /* ── Floating cards (GPA, Project count) ── */
+  .card-top  { right: -8px; }
+  .card-bottom { left: -8px; }
+
+  /* ── About Section ── */
   .about-intro-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .focus-card-wide {
     flex-direction: column;
     grid-column: span 1;
     gap: 0;
   }
-  
-  .projects-grid {
+
+  .focus-grid {
     grid-template-columns: 1fr;
   }
-  
-  .mobile-nav-toggle {
-    display: flex;
+
+  /* ── Projects ── */
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
-  
-  .main-nav {
-    z-index: 99;
-    width: 100%;
-    height: calc(100vh - 80px);
-    border-top: 1px solid var(--border-color);
-    background-color: rgba(5, 11, 20, 0.98);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    padding: 3rem 2rem;
-    position: fixed;
-    top: 80px;
-    left: -100%;
-    transition: var(--transition);
+
+  .project-filter-bar {
+    gap: 0.5rem;
   }
-  
-  .main-nav.active {
-    left: 0;
+
+  .filter-btn {
+    font-size: 0.78rem;
+    padding: 0.5rem 1rem;
+    min-height: 40px;
   }
-  
-  .main-nav ul {
-    flex-direction: column;
-    align-items: flex-start;
+
+  /* ── Timeline ── */
+  .timeline-container {
+    grid-template-columns: 1fr;
     gap: 2.5rem;
+  }
+
+  /* ── Tools Grid ── */
+  .tools-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  /* ── Publications ── */
+  .publications-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .pub-card {
+    padding: 1.5rem;
+  }
+
+  .pub-title {
+    font-size: 1.1rem;
+  }
+
+  .pub-actions {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .pub-actions .btn {
     width: 100%;
+    justify-content: center;
+    min-height: 46px;
   }
-  
-  .main-nav li {
-    width: 100%;
-  }
-  
-  .nav-link {
-    width: 100%;
-    font-size: 1.35rem;
-    display: block;
-  }
-  
-  .nav-btn {
-    text-align: center;
-    width: 100%;
-  }
-  
-  .mobile-nav-toggle.active .bar:first-child {
-    transform: rotate(45deg) translate(5px, 6px);
-  }
-  
-  .mobile-nav-toggle.active .bar:nth-child(2) {
-    opacity: 0;
-  }
-  
-  .mobile-nav-toggle.active .bar:third-child,
-  .mobile-nav-toggle.active .bar:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -7px);
-  }
-  
-  .profile-visual-wrapper {
-    width: 220px;
-    height: 220px;
-    margin: 0 auto;
-  }
-  
-  .profile-photo-frame {
-    width: 200px;
-    height: 200px;
-  }
-  
-  .profile-ring.ring-1 {
-    width: 245px;
-    height: 245px;
-  }
-  
-  .profile-ring.ring-2 {
-    width: 285px;
-    height: 285px;
-  }
-  
-  .profile-ring.ring-3 {
-    display: none;
-  }
-  
-  .card-top {
-    right: -10px;
-  }
-  
-  .card-bottom {
-    left: -10px;
-  }
-  
-  .modal-body-content {
+
+  /* ── Contact ── */
+  .contact-info {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
     padding: 1.75rem;
   }
-  
+
+  .contact-form-wrapper {
+    padding: 1.75rem;
+  }
+
+  .contact-title {
+    font-size: 1.75rem;
+  }
+
+  /* ── Modal ── */
+  .modal-backdrop {
+    padding: 0;
+    align-items: flex-end;          /* sheet slides up from bottom */
+  }
+
+  .modal-card {
+    max-height: 92dvh;
+    border-radius: 20px 20px 0 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .modal-body-content {
+    padding: 1.5rem;
+  }
+
+  .specs-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* ── Footer ── */
   .site-footer {
     flex-direction: column;
     text-align: center;
+    gap: 1rem;
+    padding: 1.75rem 0;
+  }
+
+  /* ── Disable heavy GPU effects on mobile ── */
+  .aurora-orb {
+    filter: blur(60px);             /* lighter blur = better perf */
+    opacity: 0.7;
+  }
+
+  .blueprint-grid-overlay {
+    opacity: 0.3;                   /* subtler on small screens */
+  }
+
+  /* ── Improve tap feedback — replace hover with active states ── */
+  .btn:active {
+    transform: scale(0.97);
+    opacity: 0.88;
+  }
+
+  .project-card:active {
+    transform: translateY(-2px);
+  }
+
+  .tool-card:active,
+  .focus-card:active,
+  .pub-card:active {
+    transform: translateY(-2px);
+  }
+
+  /* ── Section headers ── */
+  .section-header .title {
+    font-size: 1.75rem;
+  }
+}
+
+/* ==========================================================================
+   MOBILE — 480px and below (small phones)
+   ========================================================================== */
+@media (max-width: 480px) {
+
+  html {
+    font-size: 15px;
+  }
+
+  .section-container {
+    padding: 2.5rem 1rem;
+  }
+
+  .hero-title {
+    font-size: 1.95rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.15rem;
+  }
+
+  .hero-actions .btn {
+    max-width: 100%;
+  }
+
+  /* Even smaller orbit on tiny screens */
+  .profile-visual-wrapper {
+    width: 170px;
+    height: 170px;
+  }
+
+  .profile-photo-frame {
+    width: 155px;
+    height: 155px;
+  }
+
+  .profile-ring.ring-1 {
+    width: 190px;
+    height: 190px;
+  }
+
+  .profile-ring.ring-2 {
+    width: 224px;
+    height: 224px;
+  }
+
+  .orbit-1 { animation: orbit1-xs 30s linear infinite; }
+  .orbit-2 { animation: orbit2-xs 30s linear infinite; }
+  .orbit-3 { animation: orbit3-xs 30s linear infinite; }
+  .orbit-4 { animation: orbit4-xs 30s linear infinite; }
+  .orbit-5 { animation: orbit5-xs 30s linear infinite; }
+
+  @keyframes orbit1-xs {
+    0%   { transform: rotate(0deg)   translate(100px) rotate(0deg); }
+    100% { transform: rotate(360deg) translate(100px) rotate(-360deg); }
+  }
+  @keyframes orbit2-xs {
+    0%   { transform: rotate(72deg)  translate(100px) rotate(-72deg); }
+    100% { transform: rotate(432deg) translate(100px) rotate(-432deg); }
+  }
+  @keyframes orbit3-xs {
+    0%   { transform: rotate(144deg) translate(100px) rotate(-144deg); }
+    100% { transform: rotate(504deg) translate(100px) rotate(-504deg); }
+  }
+  @keyframes orbit4-xs {
+    0%   { transform: rotate(216deg) translate(100px) rotate(-216deg); }
+    100% { transform: rotate(576deg) translate(100px) rotate(-576deg); }
+  }
+  @keyframes orbit5-xs {
+    0%   { transform: rotate(288deg) translate(100px) rotate(-288deg); }
+    100% { transform: rotate(648deg) translate(100px) rotate(-648deg); }
+  }
+
+  .section-header .title {
+    font-size: 1.55rem;
+  }
+
+  .pub-card {
+    padding: 1.25rem;
+  }
+
+  .contact-info,
+  .contact-form-wrapper {
+    padding: 1.25rem;
+  }
+
+  .specs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tools-grid {
+    grid-template-columns: 1fr 1fr;
   }
 }
 

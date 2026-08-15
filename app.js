@@ -198,8 +198,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function initParticles() {
       particles = [];
-      // More particles for denser feel
-      let particleCount = Math.min(Math.floor((canvas.width * canvas.height) / 10000), 110);
+      // Fewer particles on touch/mobile devices for smooth 60fps
+      const isMobile = window.matchMedia("(max-width: 768px)").matches || navigator.maxTouchPoints > 0;
+      const density  = isMobile ? 28000 : 10000;
+      const cap      = isMobile ? 40    : 110;
+      let particleCount = Math.min(Math.floor((canvas.width * canvas.height) / density), cap);
       for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle());
       }
@@ -292,6 +295,9 @@ document.addEventListener("DOMContentLoaded", () => {
      2b. Kinetic Cursor Trail (dot + lagging ring)
      ========================================================================== */
   function initCursorTrail() {
+    // Skip cursor trail on touch devices — no pointer to track
+    if (navigator.maxTouchPoints > 0 || window.matchMedia("(pointer: coarse)").matches) return;
+
     // Inject cursor elements into DOM
     const dot  = document.createElement("div");
     dot.className = "cursor-dot";
@@ -1471,7 +1477,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let boostTimer = null;
 
-    photoFrame.addEventListener("click", () => {
+    function triggerBoost() {
       visualWrapper.classList.add("boost-active");
 
       // Visual glitch burst feedback
@@ -1483,11 +1489,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (boostTimer) clearTimeout(boostTimer);
 
-      // Boost stays active for 4.5 seconds per click
+      // Boost stays active for 4.5 seconds per click/tap
       boostTimer = setTimeout(() => {
         visualWrapper.classList.remove("boost-active");
       }, 4500);
-    });
+    }
+
+    // Works on both mouse click and touch tap
+    photoFrame.addEventListener("click", triggerBoost);
+    photoFrame.addEventListener("touchend", (e) => {
+      e.preventDefault(); // prevent ghost click delay on mobile
+      triggerBoost();
+    }, { passive: false });
   }
 
   initCustomCursor();
