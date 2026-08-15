@@ -291,61 +291,7 @@ document.addEventListener("DOMContentLoaded", () => {
     animate();
   }
 
-  /* ==========================================================================
-     2b. Kinetic Cursor Trail (dot + lagging ring)
-     ========================================================================== */
-  function initCursorTrail() {
-    // Skip cursor trail on touch devices — no pointer to track
-    if (navigator.maxTouchPoints > 0 || window.matchMedia("(pointer: coarse)").matches) return;
 
-    // Inject cursor elements into DOM
-    const dot  = document.createElement("div");
-    dot.className = "cursor-dot";
-    const ring = document.createElement("div");
-    ring.className = "cursor-ring";
-    document.body.appendChild(dot);
-    document.body.appendChild(ring);
-
-    let ringX = -100, ringY = -100;
-    let dotX = -100, dotY = -100;
-    let raf;
-
-    function lerp(a, b, t) { return a + (b - a) * t; }
-
-    function tick() {
-      ringX = lerp(ringX, dotX, 0.14);
-      ringY = lerp(ringY, dotY, 0.14);
-      ring.style.left = ringX + "px";
-      ring.style.top  = ringY + "px";
-      raf = requestAnimationFrame(tick);
-    }
-
-    window.addEventListener("mousemove", (e) => {
-      dotX = e.clientX;
-      dotY = e.clientY;
-      dot.style.left = dotX + "px";
-      dot.style.top  = dotY + "px";
-    });
-
-    document.addEventListener("mousedown", () => {
-      dot.classList.add("clicking");
-      ring.classList.add("clicking");
-    });
-    document.addEventListener("mouseup", () => {
-      dot.classList.remove("clicking");
-      ring.classList.remove("clicking");
-    });
-    document.addEventListener("mouseleave", () => {
-      dot.style.opacity  = "0";
-      ring.style.opacity = "0";
-    });
-    document.addEventListener("mouseenter", () => {
-      dot.style.opacity  = "1";
-      ring.style.opacity = "1";
-    });
-
-    tick();
-  }
 
   /* ==========================================================================
      2c. Scroll Reveal — IntersectionObserver Engine
@@ -1273,74 +1219,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ==========================================================================
-     11. Custom Glowing Cursor Interactivity
-     ========================================================================== */
-  function initCustomCursor() {
-    const cursor = document.getElementById("custom-cursor");
-    const cursorGlow = document.getElementById("custom-cursor-glow");
 
-    if (!cursor || !cursorGlow) return;
-
-    // Check if device supports hover pointer
-    const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
-    if (!hasFinePointer) return;
-
-    let mouseX = -100;
-    let mouseY = -100;
-    let glowX = -100;
-    let glowY = -100;
-
-    window.addEventListener("mousemove", (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      
-      // Position core dot instantly
-      cursor.style.left = `${mouseX}px`;
-      cursor.style.top = `${mouseY}px`;
-    });
-
-    // Animate outer trail glow smoothly with linear interpolation (lerp)
-    function animateGlow() {
-      const delayFactor = 0.15; // smooth lag factor
-      glowX += (mouseX - glowX) * delayFactor;
-      glowY += (mouseY - glowY) * delayFactor;
-
-      cursorGlow.style.left = `${glowX}px`;
-      cursorGlow.style.top = `${glowY}px`;
-
-      requestAnimationFrame(animateGlow);
-    }
-    requestAnimationFrame(animateGlow);
-
-    // Hover states for interactive elements (using delegated events)
-    const hoverSelectors = "a, button, input, textarea, select, .project-card, .timeline-item, .tool-card, .spec-box, .cert-item, .open-modal-btn";
-    
-    document.body.addEventListener("mouseover", (e) => {
-      if (e.target.closest(hoverSelectors)) {
-        cursor.classList.add("hovered");
-        cursorGlow.classList.add("hovered");
-      }
-    });
-
-    document.body.addEventListener("mouseout", (e) => {
-      if (e.target.closest(hoverSelectors)) {
-        cursor.classList.remove("hovered");
-        cursorGlow.classList.remove("hovered");
-      }
-    });
-
-    // Hide custom elements when mouse leaves window frame
-    document.addEventListener("mouseleave", () => {
-      cursor.style.opacity = "0";
-      cursorGlow.style.opacity = "0";
-    });
-
-    document.addEventListener("mouseenter", () => {
-      cursor.style.opacity = "1";
-      cursorGlow.style.opacity = "1";
-    });
-  }
 
   /* ==========================================================================
      12. Personal Gallery Slideshow Interactivity
@@ -1503,12 +1382,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }, { passive: false });
   }
 
-  initCustomCursor();
   initCardThumbnailCycler();
   initPersonalGallery();
   initProjectFilters();
   initMouseSpotlight();
-  initCursorTrail();
   initScrollReveal();
   initProfilePhotoBoost();
 

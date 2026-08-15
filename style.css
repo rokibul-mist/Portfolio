@@ -3230,85 +3230,7 @@ body.light-mode .floating-cv-btn:hover {
   background: rgba(0, 114, 198, 0.05);
 }
 
-/* ==========================================================================
-   Custom Glowing Cursor
-   ========================================================================== */
 
-/* Hide default cursor on desktop */
-@media (pointer: fine) {
-  html, body, a, button, input, textarea, select, .project-card, .timeline-item, .tool-card, .spec-box, .cert-item, .open-modal-btn, .theme-toggle-btn, .mobile-nav-toggle {
-    cursor: none !important;
-  }
-
-  .custom-cursor {
-    width: 8px;
-    height: 8px;
-    background-color: var(--primary);
-    border-radius: 50%;
-    position: fixed;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 10000;
-    transition: width 0.2s, height 0.2s, background-color 0.2s;
-  }
-
-  .custom-cursor-glow {
-    width: 40px;
-    height: 40px;
-    border: 1.5px solid var(--primary);
-    background-color: rgba(0, 229, 255, 0.03);
-    border-radius: 50%;
-    position: fixed;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 9999;
-    box-shadow: 0 0 15px rgba(0, 229, 255, 0.3), inset 0 0 10px rgba(0, 229, 255, 0.15);
-    transition: transform 0.08s ease-out, width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  /* Hover state: interactive highlights */
-  .custom-cursor.hovered {
-    width: 4px;
-    height: 4px;
-    background-color: var(--secondary);
-  }
-
-  .custom-cursor-glow.hovered {
-    width: 56px;
-    height: 56px;
-    border-color: var(--secondary);
-    background-color: rgba(0, 229, 255, 0.08);
-    box-shadow: 0 0 25px rgba(0, 229, 255, 0.5), inset 0 0 15px rgba(0, 229, 255, 0.25);
-  }
-
-  /* Light mode adjustments */
-  body.light-mode .custom-cursor {
-    background-color: var(--primary);
-  }
-  
-  body.light-mode .custom-cursor-glow {
-    border-color: var(--primary);
-    background-color: rgba(0, 90, 200, 0.03);
-    box-shadow: 0 0 15px rgba(0, 90, 200, 0.25), inset 0 0 10px rgba(0, 90, 200, 0.1);
-  }
-
-  body.light-mode .custom-cursor.hovered {
-    background-color: var(--secondary);
-  }
-
-  body.light-mode .custom-cursor-glow.hovered {
-    border-color: var(--secondary);
-    background-color: rgba(0, 90, 200, 0.07);
-    box-shadow: 0 0 25px rgba(0, 90, 200, 0.4), inset 0 0 15px rgba(0, 90, 200, 0.2);
-  }
-}
-
-/* Fallback: hide custom elements on touch devices or screens without cursor pointers */
-@media (pointer: coarse) {
-  .custom-cursor, .custom-cursor-glow {
-    display: none !important;
-  }
-}
 
 /* ==========================================================================
    Language Proficiency Section Styles
@@ -3475,52 +3397,6 @@ body.light-mode .pg-nav-btn {
 /* ==========================================================================
    FUTURISTIC DESIGN SYSTEM v2 — Smooth, Kinetic, Insane
    ========================================================================== */
-
-/* ─── 1. CURSOR TRAIL DOT ─────────────────────────────────────────────────── */
-.cursor-dot {
-  position: fixed;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--primary);
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: width 0.2s, height 0.2s, opacity 0.3s;
-  box-shadow: 0 0 12px var(--primary), 0 0 24px rgba(0, 229, 255, 0.5);
-  mix-blend-mode: screen;
-}
-.cursor-ring {
-  position: fixed;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(0, 229, 255, 0.55);
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s, opacity 0.4s;
-  backdrop-filter: blur(0px);
-}
-.cursor-dot.clicking {
-  width: 4px;
-  height: 4px;
-  box-shadow: 0 0 20px var(--primary), 0 0 40px rgba(0, 229, 255, 0.7);
-}
-.cursor-ring.clicking {
-  width: 52px;
-  height: 52px;
-  border-color: var(--primary);
-  opacity: 0.4;
-}
-body.light-mode .cursor-dot {
-  background: #09090b;
-  box-shadow: 0 0 10px rgba(0,0,0,0.4);
-  mix-blend-mode: normal;
-}
-body.light-mode .cursor-ring {
-  border-color: rgba(0, 0, 0, 0.3);
-}
 
 /* ─── 2. SCROLL REVEAL — initial hidden state ─────────────────────────────── */
 .reveal {
